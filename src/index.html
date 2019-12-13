@@ -8,17 +8,17 @@
 </head>
 <body>
     <h1>My Bookmarks</h1>
-    <div class='action'>
+    <div class='center'>
         <button type="submit">+ New</button>
         <select name="filter" id="filter">
             <option value="">Star1</option>
             <option value="">Star2</option>
         </select>
     </div>
-    <main>
+    <main class="">
         <p class="js-total-bookmark"></p>
         <ul class="js-bookmark-list">
-            <l class="js-bookmark-item">
+            <li class="js-bookmark-item">
                 <div class="js-close-view">
                     <span class="js-title">My Favorite Webpage</span>
                     <span class="js-rating">Ratings</span>
@@ -34,10 +34,8 @@
                         <p class="js-description"></p>
                     </section>
                 </div>
-             </l>
+             </li>
         </ul>
-    </main>
-
         <form class ="js-add">
             <label for="title">Title</label>
             <input id="title" placeholder="My Favorite Website" type="text">
@@ -61,5 +59,6 @@
                 <button type="submit">Create</button>
             </div>
         </form>
+    </main>
 </body>
 </html>
