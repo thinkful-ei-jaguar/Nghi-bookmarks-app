@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bookmarks</title>
+</head>
+<body>
+    <h1>My Bookmarks</h1>
+    <div class='action'>
+        <button type="submit">+ New</button>
+        <select name="filter" id="filter">
+            <option value="">Star1</option>
+            <option value="">Star2</option>
+        </select>
+    </div>
+    <main>
+        <p class="js-total-bookmark"></p>
+        <ul class="js-bookmark-list">
+            <l class="js-bookmark-item">
+                <div class="js-close-view">
+                    <span class="js-title">My Favorite Webpage</span>
+                    <span class="js-rating">Ratings</span>
+                </div>
+                <div class="js-open-view">
+                    <section class="js-bookmark-header">
+                        <span class="js-title"></span>
+                        <button class="js-remove"></button>
+                    </section>
+                    </section class="js-bookmark-detail">
+                        <button class='js-visit-page'>Visit Page</button>
+                        <span class="js-rating"></span>
+                        <p class="js-description"></p>
+                    </section>
+                </div>
+             </l>
+        </ul>
+    </main>
+
+        <form class ="js-add">
+            <label for="title">Title</label>
+            <input id="title" placeholder="My Favorite Website" type="text">
+            <label for="website">URL</label>
+            <input id="website" placeholder="www.NghiTranWasHere.com" type="text">
+            <div class="rate">
+                <input type="radio" id="star5" name="rate" value="5" />
+                <label for="star5"></label>
+                <input type="radio" id="star4" name="rate" value="4" />
+                <label for="star4"></label>
+                <input type="radio" id="star3" name="rate" value="3" />
+                <label for="star2"></label>
+                <input type="radio" id="star2" name="rate" value="2" />
+                <label for="star2"></label>
+                <input type="radio" id="star1" name="rate" value="1" />
+                <label for="star1"></label>
+            </div>
+            <input id="description" placeholder="Nghi's online journal..." type="text">
+            <div class="js-">
+                <button type="reset">Cancel</button>
+                <button type="submit">Create</button>
+            </div>
+        </form>
+</body>
+</html>
