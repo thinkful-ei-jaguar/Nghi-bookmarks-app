@@ -8,35 +8,20 @@
 </head>
 <body>
     <h1>My Bookmarks</h1>
-    <div class='center'>
-        <button type="submit">+ New</button>
+    <div class="center frontPage">
+        <button class="js-add-button" type="submit">+ New</button>
         <select name="filter" id="filter">
             <option value="">Star1</option>
             <option value="">Star2</option>
         </select>
     </div>
-    <main class="">
-        <p class="js-total-bookmark"></p>
-        <ul class="js-bookmark-list">
-            <li class="js-bookmark-item">
-                <div class="js-close-view">
-                    <span class="js-title">My Favorite Webpage</span>
-                    <span class="js-rating">Ratings</span>
-                </div>
-                <div class="js-open-view">
-                    <section class="js-bookmark-header">
-                        <span class="js-title"></span>
-                        <button class="js-remove"></button>
-                    </section>
-                    </section class="js-bookmark-detail">
-                        <button class='js-visit-page'>Visit Page</button>
-                        <span class="js-rating"></span>
-                        <p class="js-description"></p>
-                    </section>
-                </div>
-             </li>
-        </ul>
-        <form class ="js-add">
+    <main>
+        <div class="js-list-container frontPage">
+            <p class="js-total-bookmark"></p>
+            <ul class="js-bookmark-list">
+            </ul>
+        </div>
+        <form class ="js-add hide">
             <label for="title">Title</label>
             <input id="title" placeholder="My Favorite Website" type="text">
             <label for="website">URL</label>
@@ -54,7 +39,7 @@
                 <label for="star1"></label>
             </div>
             <input id="description" placeholder="Nghi's online journal..." type="text">
-            <div class="js-">
+            <div class="js-create-button">
                 <button type="reset">Cancel</button>
                 <button type="submit">Create</button>
             </div>

@@ -1,4 +1,4 @@
-const BASE_URL = 'https://thinkful-list-api.herokuapp.com';
+const BASE_URL = 'https://thinkful-list-api.herokuapp.com/nghi';
 
 function fetchTemplate(...args) {
   // Fetch template with built in error handling
@@ -33,17 +33,27 @@ function viewList() {
   return fetchTemplate(`${BASE_URL}/bookmarks`);
 }
 
-function removeList(id) {
+function addBookmark(data) {
+  // Add bookmark
+  return fetchTemplate(`${BASE_URL}/bookmarks`, 
+    {
+      method: 'POST',
+      headers: {'Content-type': 'application/json'},
+      body: JSON.stringify(data)
+    });
+}
+
+function removeBookmark(id) {
   // Remove bookmark
   return fetchTemplate(`${BASE_URL}/bookmarks/${id}`, {method: 'DELETE'});
 }
 
-function editList() {
+function editBookmark() {
 }
 
 export default {
   fetchTemplate,
   viewList,
-  removeList,
-  editList
+  removeBookmark,
+  editBookmark
 };
