@@ -23,25 +23,26 @@
         </div>
         <form class ="js-add hide">
             <label for="title">Title</label>
-            <input id="title" placeholder="My Favorite Website" type="text">
-            <label for="website">URL</label>
-            <input id="website" placeholder="www.NghiTranWasHere.com" type="text">
+            <input name="title" id="title" placeholder="My Favorite Website" type="text" required>
+            <label for="url">URL</label>
+            <input name="url" id="url" placeholder="https://www.NghiTranWasHere.com" type="url" pattern="https?://.+" required>
+            <label for="desc">Description</label>
+            <input name="desc" id="desc" placeholder="Nghi's online journal..." type="text">
             <div class="rate">
-                <input type="radio" id="star5" name="rate" value="5" />
+                <input type="radio" id="star5" name="rating" value="5" type="number" />
                 <label for="star5"></label>
-                <input type="radio" id="star4" name="rate" value="4" />
+                <input type="radio" id="star4" name="rating" value="4" type="number" />
                 <label for="star4"></label>
-                <input type="radio" id="star3" name="rate" value="3" />
+                <input type="radio" id="star3" name="rating" value="3" type="number" />
                 <label for="star2"></label>
-                <input type="radio" id="star2" name="rate" value="2" />
+                <input type="radio" id="star2" name="rating" value="2" type="number" />
                 <label for="star2"></label>
-                <input type="radio" id="star1" name="rate" value="1" />
+                <input type="radio" id="star1" name="rating" value="1" type="number" />
                 <label for="star1"></label>
             </div>
-            <input id="description" placeholder="Nghi's online journal..." type="text">
             <div class="js-create-button">
-                <button type="reset">Cancel</button>
-                <button type="submit">Create</button>
+                <button class="js-cancel" type="reset">Cancel</button>
+                <button class="js-create" type="submit">Create</button>
             </div>
         </form>
     </main>

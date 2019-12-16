@@ -56,39 +56,78 @@ function filterEventHandler() {
 //------------------------------------ADD
 function showForm() {
   // Show the form to add bookmark
-  debugger;
   $('.frontPage').addClass('hide');
-  debugger;
   $('form').removeClass('hide');
-  debugger;
 }
 
 function showFormEventHandler() {
-  // Show form when user wants to add bookmark
-  $('.js-add-button').submit(function() {
-    //event.defaultPrevented();
-    debugger;
+  // Listen to when user wants to add bookmark
+  $('.js-add-button').on('click', function(event) {
+    event.defaultPrevented;
     showForm();
   });
 }
 
-function addEventHandler() {
-  // Show form when users click add bookmark
+function cancelForm() {
+  // Reset and hide form
+  $('.frontPage').removeClass('hide');
+  $('form').addClass('hide');
+}
+
+function cancelFormEventHandler() {
+  // Listen to when user cancels form
+  $('.js-cancel').on('click', function(event) {
+    event.defaultPrevented;
+    cancelForm();
+    render();
+  });
 }
 
 function convertToJson(data) {
   // Convert JS object to JSON object
+  console.log(data);
   const newBookmark = new FormData(data);
-  const obj = {};
+  
+  console.log(newBookmark);
+  
+  const jsObject = {};
+  newBookmark.forEach((val,name) => jsObject[name] = val);
+  console.log(jsObject);
+  return jsObject;
+}
+
+function addBookmark(form) {
+  // Add bookmark to api and store
+  const jsonObject = convertToJson(form);
+  
+  api.addBookmark(jsonObject)
+    .then((res) => {
+      store.addBookmark(res);
+      render();
+    })
+    .catch((error) => {
+      console.log(error);
+      
+    });
+}
+
+function addBookmarkEventHandler() {
+  // Add bookmark to API and store
+  $('form').submit(function(event) {
+    event.defaultPrevented;
+    // Pass form data by reference
+    addBookmark(event.currentTarget);
+    render();
+  });
 }
 
 
 //------------------------------------Listening/Render Functions
 function activeEventHandlers() {
   //filterEventHandler();
-  debugger;
   showFormEventHandler();
-  //addEventHandler();
+  cancelFormEventHandler();
+  addBookmarkEventHandler();
 }
 
 function render() {

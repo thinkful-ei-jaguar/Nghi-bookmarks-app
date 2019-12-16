@@ -7,8 +7,15 @@ import store from './store';
 import bookmark from './bookmark';
 
 function renderPage() {
-  //bookmark.printList();
-  bookmark.activeEventHandlers();
+  //bookmark.activeEventHandlers();
+  // bookmark.render();
+  api.viewList()
+    .then(res => {
+      console.log(res);
+    })
+    .catch(error => {
+      console.log(error);
+    });
 }
 
 $(renderPage);
