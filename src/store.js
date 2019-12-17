@@ -1,50 +1,41 @@
 /* eslint-disable no-prototype-builtins */
 const STORE = {bookmarks: []};
 
+function addBookmark(item) {
+  // Add bookmark to STORE
+  STORE.bookmarks.push(item);
+  // Create expanded view property to false
+  STORE.bookmarks[STORE.bookmarks.length-1].expanded = false;
+}
+
+function setStoreProperties() {
+  // Set store default properties if haven't already
+  if(!STORE.hasOwnProperty('filter')) {
+    STORE.adding = false;
+    STORE.error = null;
+    STORE.filter = 0;
+  }
+}
+
 function findByID(id) {
   // Find id of bookmark
   return STORE.bookmarks.find(element => element.id === id);
 }
 
-function setStoreProperties() {
-  // Set store default properties if haven't
-  if(!STORE.hasOwnProperty('filter')) {
-    STORE.adding = false;
-    STORE.error = null;
-    STORE.filter = 0;
-    STORE.bookmarks.map(element => {
-      element.expanded = false;
-    });
-  }
+function removeBookmark(id) {
+  // Remove bookmark from STORE
+  STORE.bookmarks.splice(STORE.bookmarks.findIndex(element => element.id === id), 1);
 }
 
-function checkExpandProperty(index) {
-  const addClass = 'hide';
-  if(STORE.bookmarks[index].expanded === true) {
-    return addClass;
-  }
+function filterStore(filter) {
+  STORE.filter = filter;
 }
-
-function viewStore() {
-}
-
-function addBookmark(item) {
-  // Add bookmark to STORE
-  STORE.bookmarks.push(item);
-}
-
-
-
-
-
-
-
 
 export default {
   STORE,
-  viewStore,
   addBookmark,
   setStoreProperties,
   findByID,
-  checkExpandProperty
+  removeBookmark,
+  filterStore
 };

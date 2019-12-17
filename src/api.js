@@ -24,7 +24,7 @@ function viewList() {
 }
 
 function addBookmark(data) {
-  // Add bookmark
+  // Add bookmark to api
   const newBookmark = JSON.stringify(data);
   return fetchTemplate(`${BASE_URL}`,{ 
     method: 'POST',
@@ -42,7 +42,6 @@ function editBookmark() {
 }
 
 export default {
-  fetchTemplate,
   viewList,
   addBookmark,
   removeBookmark,
