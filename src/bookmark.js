@@ -28,20 +28,7 @@ function bookmarkHTML(element) {
 }
 
 function updateList() {
-  // Get bookmark list from API
-  api.viewList()
-    .then(
-      data => {
-        // Push bookmarks to store
-        data.forEach((element) => {
-          store.STORE.bookmarks.push(element);
-          // Create html string for all bookmarks
-          // bookmarkHTMLString(bookmarkHTML(element));
-        });
-        // Set expand property for each bookmark to false if hasn't already set yet
-        store.setExpandProperty();
-      }
-    );
+
 }
 
 function generateHTML(bookmarkList) {
@@ -50,7 +37,6 @@ function generateHTML(bookmarkList) {
     bookmarkHTML(element));
   const htmlString = htmlArray.join('');
   console.log(htmlString);
-  debugger;
   return htmlString;
 }
 
@@ -159,13 +145,14 @@ function render() {
   //if(store.STORE.filter !== 0) {
   //  showFilter();
   //}
-  updateList();
-  let bookmarks = store.STORE.bookmarks;
-  let bookmarkHTML = generateHTML(bookmarks);
-  $('.js-bookmark-list').html(bookmarkHTML);
+  let database = store.STORE;
+  console.log(database);
+  let bookmarkersHTML = generateHTML(database.bookmarks);
+  $('.js-bookmark-list').html(bookmarkersHTML);
 }
 
 export default {
   activeEventHandlers,
-  render
+  render,
+  updateList
 };

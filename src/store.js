@@ -1,20 +1,20 @@
 /* eslint-disable no-prototype-builtins */
-const STORE = {
-  bookmarks: [],
-  adding: false,
-  error: null,
-  filter: 0
-};
+const STORE = {bookmarks: []};
 
 function findByID(id) {
   // Find id of bookmark
   return STORE.bookmarks.find(element => element.id === id);
 }
 
-function setExpandProperty() {
-  // Set all bookmarks with default property of false if this is our first time rendering page
-  if(!STORE.bookmarks[0].hasOwnProperty('expanded')) {
-    STORE.bookmarks.map(element => element.expanded = false);
+function setStoreProperties() {
+  // Set store default properties if haven't
+  if(!STORE.hasOwnProperty('filter')) {
+    STORE.adding = false;
+    STORE.error = null;
+    STORE.filter = 0;
+    STORE.bookmarks.map(element => {
+      element.expanded = false;
+    });
   }
 }
 
@@ -28,9 +28,9 @@ function checkExpandProperty(index) {
 function viewStore() {
 }
 
-function addBookmark(formData) {
+function addBookmark(item) {
   // Add bookmark to STORE
-  STORE.bookmarks.push(formData);
+  STORE.bookmarks.push(item);
 }
 
 
@@ -44,7 +44,7 @@ export default {
   STORE,
   viewStore,
   addBookmark,
-  setExpandProperty,
+  setStoreProperties,
   findByID,
   checkExpandProperty
 };
