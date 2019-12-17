@@ -5,13 +5,16 @@ import store from './store';
 
 //------------------------------------View
 function bookmarkHTML(element) {
-  // HTML template for each bookmark
-  return `<li class="js-bookmark-item">
-      <div class="js-close-view">
+  // Create HTML template for each bookmark
+  // Create condense view if expanded property is false
+  if(element.expanded === false){
+    return `<li class="js-bookmark-item">
           <span class="js-title">${element.title}</span>
           <span class="js-rating">${element.rating}</span>
-      </div>
-      <div class="js-open-view">
+      </li>`;
+  }
+  // Create expanded view if expanded property is true
+  return `<li class="js-bookmark-item">
           <section class="js-bookmark-header">
               <span class="js-title">${element.rating}</span>
               <button class="js-remove"></button>
@@ -19,27 +22,52 @@ function bookmarkHTML(element) {
           </section class="js-bookmark-detail">
               <button class='js-visit-page'>Visit Page</button>
               <span class="js-rating">${element.rating}</span>
-              <p class="js-description">${element.description}</p>
+              <p class="js-description">${element.desc}</p>
           </section>
-      </div>
       </li>`;
 }
 
-function printList() {
-  // Print bookmark list
+function updateList() {
+  // Get bookmark list from API
   api.viewList()
     .then(
       data => {
-        // Save to store and append  
-        data.array.forEach(element => {
+        // Push bookmarks to store
+        data.forEach((element) => {
           store.STORE.bookmarks.push(element);
-          $('.js-bookmark-list').append(bookmarkHTML(element));
+          // Create html string for all bookmarks
+          // bookmarkHTMLString(bookmarkHTML(element));
         });
+        // Set expand property for each bookmark to false if hasn't already set yet
+        store.setExpandProperty();
       }
     );
 }
 
+function generateHTML(bookmarkList) {
+  // Print bookmarks to the page
+  let htmlArray = bookmarkList.map((element) => 
+    bookmarkHTML(element));
+  const htmlString = htmlArray.join('');
+  console.log(htmlString);
+  debugger;
+  return htmlString;
+}
 
+function expandView(e) {
+  // Show bookmark details
+  $('e > .js-close-view').toggleClass('hide');
+  $('e > .js-bookmark-detail').toggleClass('hide');
+}
+
+function expandViewEventHandler() {
+  // Listen to when user clicks on bookmark for details
+  $('.js-bookmark-list').on('click', '.js-bookmark-item', function(event) {
+    event.stopPropagation();
+    expandView(event.currentTarget);
+    render();
+  });
+}
 
 //------------------------------------Filter
 function showFilter() {
@@ -63,7 +91,7 @@ function showForm() {
 function showFormEventHandler() {
   // Listen to when user wants to add bookmark
   $('.js-add-button').on('click', function(event) {
-    event.defaultPrevented;
+    event.preventDefault();
     showForm();
   });
 }
@@ -77,7 +105,7 @@ function cancelForm() {
 function cancelFormEventHandler() {
   // Listen to when user cancels form
   $('.js-cancel').on('click', function(event) {
-    event.defaultPrevented;
+    event.preventDefault();
     cancelForm();
     render();
   });
@@ -85,36 +113,31 @@ function cancelFormEventHandler() {
 
 function convertToJson(data) {
   // Convert JS object to JSON object
-  console.log(data);
   const newBookmark = new FormData(data);
-  
   console.log(newBookmark);
-  
   const jsObject = {};
   newBookmark.forEach((val,name) => jsObject[name] = val);
-  console.log(jsObject);
   return jsObject;
 }
 
 function addBookmark(form) {
   // Add bookmark to api and store
   const jsonObject = convertToJson(form);
-  
   api.addBookmark(jsonObject)
     .then((res) => {
       store.addBookmark(res);
-      render();
+      //render();
+      console.log(res);
     })
     .catch((error) => {
       console.log(error);
-      
     });
 }
 
 function addBookmarkEventHandler() {
   // Add bookmark to API and store
   $('form').submit(function(event) {
-    event.defaultPrevented;
+    event.preventDefault();
     // Pass form data by reference
     addBookmark(event.currentTarget);
     render();
@@ -126,19 +149,23 @@ function addBookmarkEventHandler() {
 function activeEventHandlers() {
   //filterEventHandler();
   showFormEventHandler();
+  expandViewEventHandler();
   cancelFormEventHandler();
   addBookmarkEventHandler();
 }
 
 function render() {
   // Rerender to show filtered results if any
-  if(store.STORE.filter !== 0) {
-    showFilter();
-  }
-  printList();
+  //if(store.STORE.filter !== 0) {
+  //  showFilter();
+  //}
+  updateList();
+  let bookmarks = store.STORE.bookmarks;
+  let bookmarkHTML = generateHTML(bookmarks);
+  $('.js-bookmark-list').html(bookmarkHTML);
 }
 
 export default {
   activeEventHandlers,
-  printList
+  render
 };

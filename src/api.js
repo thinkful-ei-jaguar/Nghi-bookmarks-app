@@ -15,15 +15,6 @@ function fetchTemplate(...args) {
       }
       // Convert JSON to JS object
       return res.json();
-    })
-    .then(jsObject => {
-      // If error exists, create objectreject the promise
-      if(error) {
-        error.message = jsObject.message;
-        return Promise.reject(error);
-      }
-      // Return jsObject if no error
-      return jsObject;
     });
 }
 
@@ -35,8 +26,7 @@ function viewList() {
 function addBookmark(data) {
   // Add bookmark
   const newBookmark = JSON.stringify(data);
-  console.log(newBookmark);
-  return fetch(`${BASE_URL}`,{ 
+  return fetchTemplate(`${BASE_URL}`,{ 
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: newBookmark
