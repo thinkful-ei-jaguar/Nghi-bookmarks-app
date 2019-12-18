@@ -53,7 +53,8 @@
         width: 0px;
         background: #F2cd37;
         position: absolute;
-        left: 180px;
+        left: 90%;
+        border: none;
     }
 
     .js-remove-icon {
@@ -66,7 +67,7 @@
     /*Rating Position*/
     .js-rating {
         position: absolute;
-        left: 180px;
+        left: 90%;
     }
 
     .starImage {
@@ -138,9 +139,6 @@
         font-size: 40px;
     }
 
-    .js-rating {
-        left: 230px;
-    }
 
     .js-create, .js-cancel, .js-add-button, #filter {
         font-size: 18px;
@@ -154,15 +152,12 @@
         height: 25px;
     }
     
-    /*Trash Icon and Button*/
-    .js-remove {
-        left: 226px;
-    }
 
     .js-remove-icon {
         width: 17px;
         height: 20px;
     }
+
     /*Visit Button*/
     .js-visit-page{
         font-size: 15px;
@@ -172,5 +167,104 @@
     .starImage {
         width: 15px;
         height: 15px;
+    }
+
+    input[type=text],input[type=text] {
+        font-size: 17px;
+    }
+}
+
+@media only screen and (min-width: 425px) {
+    h1 {
+        font-size: 45px;
+    }
+
+}
+
+@media only screen and (min-width: 768px) {
+    h1 {
+        font-size: 60px;
+        width: 48%;
+    }
+
+    /*Trash Icon and Button*/
+    .js-remove {
+        left: 95%;
+    }
+
+    /*Rating Position*/
+    .js-rating {
+        left: 94%;
+    }
+
+    .starImage {
+        width: 20px;
+        height: 20px;
+    }
+
+    .js-create, .js-cancel, .js-add-button, #filter {
+        font-size: 25px;
+        width: 100px;
+        height: 35px;
+    }
+
+    .js-visit-page{
+        font-size: 18px;
+    }
+
+    form {
+        margin-left: 15%;
+        margin-right: 15%;
+    }
+
+    input {
+        height: 40px;
+    }
+
+    input[type=text], input[type=url] {
+        font-size: 25px;
+    }
+
+}
+
+@media only screen and (min-width: 1024px) {
+    h1 {
+        font-size: 60px;
+        width: 36%;
+    }
+
+    .js-list-container, form {
+        font-size: 30px;
+    }
+
+
+    .js-remove-icon {
+        width: 23px;
+        height: 27px;
+    }
+
+    .starImage {
+        width: 23px;
+        height: 23px;
+    }
+
+    .js-visit-page{
+        font-size: 22px;
+    }
+}
+
+@media only screen and (min-width: 1024px) {
+    h1 {
+        font-size: 90px;
+    }
+
+    /*Trash Icon and Button*/
+    .js-remove {
+        left: 97%;
+    }
+
+    /*Rating Position*/
+    .js-rating {
+        left: 96%;
     }
 }

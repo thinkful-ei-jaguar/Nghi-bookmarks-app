@@ -121,7 +121,7 @@ function showForm() {
               <label for="desc">Description</label>
               <input name="desc" id="desc" placeholder="Nghi's online journal..." type="text">
               <div class="rate">
-                  <label aria-label="rating" for="star5">Rating</label>
+                  <label aria-label="rating" for="star5">Rating (out of 5 stars)</label>
                   </br>
                   <input aria-label="1 star" type="radio" id="star1" name="rating" value="1" type="number" required/>
                   <input aria-label="2 star" type="radio" id="star2" name="rating" value="2" type="number" required/>
