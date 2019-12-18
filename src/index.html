@@ -4,51 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Dosis&display=swap" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
     <title>Bookmarks</title>
 </head>
 <body>
-    <h1>My Bookmarks</h1>
-    <div class="center frontPage">
-        <button class="js-add-button" type="submit">+ New</button>
-        <select name="filter" id="filter">
-            <option value="0">Filter By Rating</option>
-            <option value="1">1+ Star</option>
-            <option value="2">2+ Stars</option>
-            <option value="3">3+ Stars</option>
-            <option value="4">4+ Stars</option>
-            <option value="5">5 Stars</option>
-        </select>
-    </div>
     <main>
-        <div class="js-list-container frontPage">
-            <p class="js-total-bookmark"></p>
-            <ul class="js-bookmark-list">
-            </ul>
-        </div>
-        <form class ="js-add hide">
-            <label for="title">Title</label>
-            <input name="title" id="title" placeholder="My Favorite Website" type="text" required>
-            <label for="url">URL</label>
-            <input name="url" id="url" placeholder="https://www.NghiTranWasHere.com" type="url" pattern="https?://.+" required>
-            <label for="desc">Description</label>
-            <input name="desc" id="desc" placeholder="Nghi's online journal..." type="text">
-            <div class="rate">
-                <input type="radio" id="star5" name="rating" value="5" type="number" />
-                <label for="star5"></label>
-                <input type="radio" id="star4" name="rating" value="4" type="number" />
-                <label for="star4"></label>
-                <input type="radio" id="star3" name="rating" value="3" type="number" />
-                <label for="star2"></label>
-                <input type="radio" id="star2" name="rating" value="2" type="number" />
-                <label for="star2"></label>
-                <input type="radio" id="star1" name="rating" value="1" type="number" />
-                <label for="star1"></label>
-            </div>
-            <div class="js-create-button">
-                <button class="js-cancel" type="reset">Cancel</button>
-                <button class="js-create" type="submit">Create</button>
-            </div>
-        </form>
     </main>
 </body>
 </html>

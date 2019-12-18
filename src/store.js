@@ -1,41 +1,45 @@
-/* eslint-disable no-prototype-builtins */
-const STORE = {bookmarks: []};
+//const STORE = {bookmarks: []};
+const bookmarks = [];
 
 function addBookmark(item) {
   // Add bookmark to STORE
-  STORE.bookmarks.push(item);
+  this.bookmarks.push(item);
   // Create expanded view property to false
-  STORE.bookmarks[STORE.bookmarks.length-1].expanded = false;
+  this.bookmarks[this.bookmarks.length-1].expanded = false;
 }
 
 function setStoreProperties() {
   // Set store default properties if haven't already
-  if(!STORE.hasOwnProperty('filter')) {
-    STORE.adding = false;
-    STORE.error = null;
-    STORE.filter = 0;
+  let hasDefaultProperties = Object.prototype.hasOwnProperty.call(this, 'filter');
+  if(!hasDefaultProperties) {
+    this.adding = false;
+    this.error = null;
+    this.filter = 0;
   }
 }
 
-function findByID(id) {
-  // Find id of bookmark
-  return STORE.bookmarks.find(element => element.id === id);
-}
-
+/**
+ * 
+ * @param {string} id 
+ */
 function removeBookmark(id) {
   // Remove bookmark from STORE
-  STORE.bookmarks.splice(STORE.bookmarks.findIndex(element => element.id === id), 1);
+  this.bookmarks.splice(this.bookmarks.findIndex(element => element.id === id), 1);
 }
 
+/**
+ * filtered parameter ranges from 0-5
+ * @param {number} filter 
+ */
 function filterStore(filter) {
-  STORE.filter = filter;
+  // Set filter property
+  this.filter = filter;
 }
 
 export default {
-  STORE,
+  bookmarks,
   addBookmark,
   setStoreProperties,
-  findByID,
   removeBookmark,
   filterStore
 };

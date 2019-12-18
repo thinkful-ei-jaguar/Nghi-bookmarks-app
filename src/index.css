@@ -1,12 +1,24 @@
 @media only screen and (min-width: 320px) {
     * {
         box-sizing: border-box;
+        font-family: 'Dosis', sans-serif;
+    }
+
+    body {
+        margin: 0;
+        background: #403F4C;
+        color: white;
+    }
+
+    main {
+        margin-top: 50px;
     }
     
     h1 {
+        margin-top: 0;
         margin-left: auto;
         margin-right: auto;
-        width: 70%;
+        width: 60%;
     }
 
     .center {
@@ -14,13 +26,151 @@
         justify-content: center;
     }
 
+    .frontPage {
+        height: 24px;
+    }
+
+    button:hover, #filter:hover {
+        background: white;
+    }
+
+    .js-create, .js-cancel, .js-add-button, #filter {
+        font-size: 15px;
+        border: 1px white;
+        text-align: center;
+        border-radius: 4px;
+    }
+
+    .js-visit-page{
+        font-size: 11px;
+        border: 1px white;
+        text-align: center;
+    }
+
+    /*Trash Icon and Button*/
+    .js-remove {
+        height: 0px;
+        width: 0px;
+        background: #F2cd37;
+        position: absolute;
+        left: 180px;
+    }
+
+    .js-remove-icon {
+        cursor: pointer;
+        width: 15px;
+        height: 15px;
+        border: none;
+    }
+
+    /*Rating Position*/
+    .js-rating {
+        position: absolute;
+        left: 180px;
+    }
+
+    .starImage {
+        width: 13px;
+        height: 13px;
+    }
+
+    #filter {
+        margin-left: 8px;
+        width: 55px;
+    }
+
+    .js-list-container {
+        margin-left: 5%;
+        margin-right: 5%;
+        margin-top: 3px;
+        width: 90%;
+        height: 100%;
+    }
+
+    .js-bookmark-list {
+        border-width: 3px;
+        border-color: black;
+    }
+    
+    .js-bookmark-item {
+        background: #F2cd37;
+    }
+    
+    li {
+        background: #F9DC5C;
+        margin-right: 10%;
+        color: black;
+        width: 87%;
+        margin-bottom: 5px;
+        position: relative;
+    }
+
+    .js-bookmark-header {
+        background: #F2cd37;
+    }
+
+    .js-description {
+        margin-bottom: 0px;
+    }
+    
+
     form {
         display: flex;
         flex-direction: column;
         justify-content: center;
+        margin-left: 10%;
+        margin-right: 10%;
     }
 
-    .hide {
-        display: none;
+    .js-create-button {
+        margin-top: 20px;
+    }
+
+    ul {
+        list-style-type: none;
+    }
+
+}
+
+@media only screen and (min-width: 375px) {
+    h1 {
+        width: 60%;
+        font-size: 40px;
+    }
+
+    .js-rating {
+        left: 230px;
+    }
+
+    .js-create, .js-cancel, .js-add-button, #filter {
+        font-size: 18px;
+    }
+
+    .js-list-container, form {
+        font-size: 20px;
+    }
+
+    input {
+        height: 25px;
+    }
+    
+    /*Trash Icon and Button*/
+    .js-remove {
+        left: 226px;
+    }
+
+    .js-remove-icon {
+        width: 17px;
+        height: 20px;
+    }
+    /*Visit Button*/
+    .js-visit-page{
+        font-size: 15px;
+    }
+
+    /*Rating Position*/
+    .starImage {
+        width: 15px;
+        height: 15px;
     }
 }

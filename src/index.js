@@ -11,7 +11,7 @@ function renderPage() {
   bookmark.updateList();
   // Listen to events
   bookmark.activeEventHandlers();
-  // Show DOM
+  // Create HTML on pageload
   bookmark.render();
 }
 

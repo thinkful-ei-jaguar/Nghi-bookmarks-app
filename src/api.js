@@ -19,10 +19,14 @@ function fetchTemplate(...args) {
 }
 
 function viewList() {
-  // Return list of bookmarks via array
+  // Return list of bookmarks as array objects
   return fetchTemplate(`${BASE_URL}`);
 }
 
+/**
+ * JS object containing body of POST request
+ * @param {object} data 
+ */
 function addBookmark(data) {
   // Add bookmark to api
   const newBookmark = JSON.stringify(data);
@@ -33,17 +37,17 @@ function addBookmark(data) {
   });
 }
 
+/**
+ * 
+ * @param {string} id 
+ */
 function removeBookmark(id) {
   // Remove bookmark
   return fetchTemplate(`${BASE_URL}/${id}`, {method: 'DELETE'});
-}
-
-function editBookmark() {
 }
 
 export default {
   viewList,
   addBookmark,
   removeBookmark,
-  editBookmark
 };

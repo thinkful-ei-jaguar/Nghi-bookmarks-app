@@ -4,12 +4,34 @@ import api from './api';
 import store from './store';
 
 //------------------------------------View
+function frontPageHTML(list) {
+  // Generate html for front page view
+  return `<h1>My Bookmarks</h1>
+          <div class="center frontPage">
+            <button class="js-add-button" type="submit">+ New</button>
+            <select aria-label="filter by rating" name="filter" id="filter">
+                <option value="0">Filter By Rating</option>
+                <option value="1">1+ Star</option>
+                <option value="2">2+ Stars</option>
+                <option value="3">3+ Stars</option>
+                <option value="4">4+ Stars</option>
+                <option value="5">5 Stars</option>
+            </select>
+          </div>
+          <div class="js-list-container">
+              <p class="js-total-bookmark"></p>
+              <ul class="js-bookmark-list">
+              ${list}
+              </ul>
+          </div>`;
+}
+
 function bookmarkHTML(element) {
-  // Create HTML template for each bookmark
+  // Generate HTML for each bookmark
   let rate;
   let desc;
   // If bookmark has rating/description, create string
-  element.rating !== null ? rate = `<span class="js-rating">${element.rating}</span>` : rate = '';
+  element.rating !== null ? rate = `<span class="js-rating">${element.rating}<img class="starImage" src="https://i7.pngguru.com/preview/792/713/153/star-computer-icons-desktop-wallpaper-clip-art-star.jpg" alt="star rating"/></span>` : rate = '';
   element.desc !== null ? desc = `<p class="js-description">${element.desc}</p>` : desc = '';
   // Create condense view if expanded property is false
   if(element.expanded === false){
@@ -22,7 +44,7 @@ function bookmarkHTML(element) {
   return `<li>
           <section class="js-bookmark-header">
               <span class="js-title js-bookmark-item" id="${element.id}">${element.title}</span>
-              <button type="click" class="js-remove">Remove</button>
+              <button type="click" class="js-remove"><img class="js-remove-icon" src="https://icon-library.net/images/trashcan-icon/trashcan-icon-12.jpg" alt="trash can"/></button>
           </section>
           </section class="js-bookmark-detail">
               <button onClick="window.open('${element.url}')" class="js-visit-page">Visit Page</button>
@@ -37,9 +59,7 @@ function updateList() {
   api.viewList()
     .then(data => {
       // Push bookmarks to store
-      data.forEach((element) => {
-        store.addBookmark(element);
-      });
+      data.forEach((element) => store.addBookmark(element));
       // Set store default properties if haven't done so already
       store.setStoreProperties();
       render();
@@ -47,19 +67,18 @@ function updateList() {
 }
 
 function generateHTML(bookmarkList) {
-  // Create bookmark view to show on page
-  let htmlArray = bookmarkList.map((element) => 
+  // Generate html string for all bookmarks
+  const htmlArray = bookmarkList.map((element) => 
     bookmarkHTML(element));
+  // Aggregate the array of strings
   const htmlString = htmlArray.join('');
   return htmlString;
 }
 
 function expandView(id) {
   // Change bookmark view
-  store.STORE.bookmarks.map((element) =>{
-    if(element.id === id){
-      element.expanded = !element.expanded;
-    }
+  store.bookmarks.map((element) =>{
+    if(element.id === id) element.expanded = !element.expanded;
   });
 }
 
@@ -69,8 +88,8 @@ function findBookmark(item) {
 }
 
 function expandViewEventHandler() {
-  // Listen to when user clicks on bookmark for details
-  $('.js-bookmark-list').on('click', '.js-bookmark-item', function(event) {
+  // Listen to when user click on bookmark
+  $('main').on('click', '.js-bookmark-item', function(event) {
     event.stopPropagation();
     let id = findBookmark(event.currentTarget);
     expandView(id);
@@ -78,12 +97,12 @@ function expandViewEventHandler() {
   });
 }
 
-
 //------------------------------------Filter
 
 function filterEventHandler() {
-  // Listen to when user selected a filter
-  $('#filter').change( function() {
+  // Listen to when user select a filter
+  $('main').on('change', '#filter', function() {
+    // Store filter value
     let filter = $(this).val();
     store.filterStore(filter);
     render();
@@ -91,27 +110,46 @@ function filterEventHandler() {
 }
 
 //------------------------------------ADD
-function toggleForm() {
-  // Show/hide the add bookmark page
-  $('.frontPage').toggleClass('hide');
-  $('form').toggleClass('hide');
-  // Reset form
-  $('form').trigger('reset');
+function showForm() {
+  // Show form to add bookmark
+  $('main').html(`<h1>My Bookmarks</h1>
+            <form class ="js-add">
+              <label for="title">Title</label>
+              <input name="title" id="title" placeholder="My Favorite Website" type="text" required>
+              <label for="url">URL</label>
+              <input name="url" id="url" placeholder="https://www.NghiTranWasHere.com" type="url" pattern="https?://.+" required>
+              <label for="desc">Description</label>
+              <input name="desc" id="desc" placeholder="Nghi's online journal..." type="text">
+              <div class="rate">
+                  <label aria-label="rating" for="star5">Rating</label>
+                  </br>
+                  <input aria-label="1 star" type="radio" id="star1" name="rating" value="1" type="number" required/>
+                  <input aria-label="2 star" type="radio" id="star2" name="rating" value="2" type="number" required/>
+                  <input aria-label="3 star" type="radio" id="star3" name="rating" value="3" type="number" required/>
+                  <input aria-label="4 star" type="radio" id="star4" name="rating" value="4" type="number" required/>
+                  <input aria-label="5 star" type="radio" id="star5" name="rating" value="5" type="number" required/>
+              </div>
+              <div class="js-create-button">
+                  <button class="js-cancel" type="reset">Cancel</button>
+                  <button class="js-create" type="submit">Create</button>
+              </div>
+          </form>`);
 }
 
 function showFormEventHandler() {
-  // Listen to when user wants to add bookmark
-  $('.js-add-button').on('click', function(event) {
+  // Listen to when user want to add bookmark
+  $('main').on('click', '.js-add-button', function(event) {
     event.preventDefault();
-    toggleForm();
+    showForm();
   });
 }
 
 function cancelFormEventHandler() {
-  // Listen to when user cancels form
-  $('.js-cancel').on('click', function(event) {
+  // Listen to when user cancel form
+  $('main').on('click', '.js-cancel', function(event) {
     event.preventDefault();
-    toggleForm();
+    // Reset form
+    $('form').trigger('reset');
     render();
   });
 }
@@ -120,6 +158,7 @@ function convertToObject(data) {
   // Convert form data to JS object
   const newBookmark = new FormData(data);
   const jsObject = {};
+  // Create key/value pair for each for element
   newBookmark.forEach((val,name) => jsObject[name] = val);
   return jsObject;
 }
@@ -127,11 +166,12 @@ function convertToObject(data) {
 function addBookmark(form) {
   // Add bookmark to api and store
   const jsonObject = convertToObject(form);
+  // Generate GET request
   api.addBookmark(jsonObject)
     .then((res) => {
+      // Push new bookmark to store
       store.addBookmark(res);
       render();
-      toggleForm();
     })
     .catch((error) => {
       console.log(error);
@@ -139,8 +179,8 @@ function addBookmark(form) {
 }
 
 function addBookmarkEventHandler() {
-  // Add bookmark to API and store
-  $('form').submit(function(event) {
+  // Listen to when user submit form
+  $('main').on('submit', 'form', function(event) {
     event.preventDefault();
     // Pass form data by reference
     addBookmark(event.currentTarget);
@@ -148,7 +188,6 @@ function addBookmarkEventHandler() {
 }
 
 //------------------------------------REMOVE
-
 function removeBookmark(item) {
   // Find and delete bookmark from api and store
   const id = $(item).siblings('.js-bookmark-item').attr('id');
@@ -157,8 +196,8 @@ function removeBookmark(item) {
 }
 
 function removeBookmarkEventHandler() {
-  // Listen to when use click remove bookmark
-  $('.js-bookmark-list').on('click', '.js-remove', function(event) {
+  // Listen to when user remove bookmark
+  $('main').on('click', '.js-remove', function(event) {
     event.preventDefault();
     removeBookmark(event.currentTarget);
     render();
@@ -167,6 +206,7 @@ function removeBookmarkEventHandler() {
 
 //------------------------------------Listening/Render Functions
 function activeEventHandlers() {
+  // Listening to events
   filterEventHandler();
   showFormEventHandler();
   expandViewEventHandler();
@@ -176,16 +216,21 @@ function activeEventHandlers() {
 }
 
 function render() {
-  // Rerender bookmark list
-  let database = store.STORE;
+  // Render bookmark list
+  let database = store.bookmarks;
+  let filteredItems = [];
+  let bookmarkersHTML = '';
   // Show filtered item if filter is selected
-  if(database.filter !== 0) {
-    database.bookmarks = database.bookmarks.filter(element =>
-      element.rating >= database.filter);
+  if(store.filter !== 0) {
+    filteredItems = database.filter(element =>
+      element.rating >= store.filter);
+    bookmarkersHTML = generateHTML(filteredItems);
   }
-  console.log(store.STORE);
-  let bookmarkersHTML = generateHTML(database.bookmarks);
-  $('.js-bookmark-list').html(bookmarkersHTML);
+  else{
+    bookmarkersHTML = generateHTML(database);
+  }
+  // Generate page
+  $('main').html(frontPageHTML(bookmarkersHTML));
 }
 
 export default {
